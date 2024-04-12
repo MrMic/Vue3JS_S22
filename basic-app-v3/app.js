@@ -1,20 +1,24 @@
-Vue.component('the-button', {
-  template: '<button @click="updateMessage">Click me</button>',
+const app = Vue.createApp({
+  data() {
+    return {
+      message: "This works in Vue 2!",
+    };
+  },
   methods: {
-    updateMessage() {
-      this.$emit('update');
+    changeMessage() {
+      this.message = "Will it work in Vue 3?";
     },
   },
 });
 
-new Vue({
-  el: '#app',
-  data: {
-    message: 'This works in Vue 2!',
-  },
+app.component("the-button", {
+  emits: ["update"],
+  template: '<button @click="updateMessage">Click me</button>',
   methods: {
-    changeMessage() {
-      this.message = 'Will it work in Vue 3?';
+    updateMessage() {
+      this.$emit("update");
     },
   },
 });
+
+app.mount("#app");
